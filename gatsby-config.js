@@ -13,14 +13,16 @@ module.exports = {
         {
             resolve: `gatsby-plugin-manifest`,
             options: {
-                name: "GatsbyJS",
-                short_name: "GatsbyJS",
+                name: "Office Timer",
+                short_name: "otimer",
                 start_url: "/",
-                background_color: "#6b37bf",
-                theme_color: "#6b37bf",
+                background_color: "#FFFFFF",
+                theme_color: "#FFFFFF",
                 display: "minimal-ui", // This path is relative to the root of the site.
+                icon: `src/images/icon.jpg`
             },
         },
+        `gatsby-plugin-offline`,
         `gatsby-transformer-remark`,
         `gatsby-plugin-react-helmet`,
         {
