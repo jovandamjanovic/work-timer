@@ -3,8 +3,8 @@ import Layout from "../components/layout";
 import { Circle } from 'rc-progress';
 
 export default () => {
-    let startTime = 8 * 60 * 60;
-    let endTime = 16 * 60 * 60;
+    let startTime = 7.5 * 60 * 60;
+    let endTime = 15.5 * 60 * 60;
     return (
     <Layout>
         <TimerCircle startTime={startTime} endTime={endTime} />
