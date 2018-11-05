@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import Layout from "../components/layout";
-import { Circle } from 'rc-progress';
+import CircularProgressbar from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 class TimerCircle extends Component {
     constructor(props) {
@@ -34,7 +35,7 @@ class TimerCircle extends Component {
     }
 
     render() {
-        return (<Circle percent={this.state.percentage} strokeWidth="5" strokeColor={this.state.percentage < 100 ? "#00FF00" : "#FF0000"} trailWidth="5"/>)
+        return (<CircularProgressbar percentage={this.state.percentage} text={`${this.state.percentage.toFixed(2)}%`} strokeWidth="5" strokeColor={this.state.percentage < 100 ? "#00FF00" : "#FF0000"} trailWidth="5"/>)
     }
 }
 
