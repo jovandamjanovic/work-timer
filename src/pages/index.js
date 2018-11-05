@@ -2,45 +2,43 @@ import React, { Component } from "react"
 import Layout from "../components/layout";
 import { Circle } from 'rc-progress';
 
-export default () => {
-    let startTime = 7.5 * 60 * 60;
-    let endTime = 15.5 * 60 * 60;
-    return (
-    <Layout>
-        <TimerCircle startTime={startTime} endTime={endTime} />
-    </Layout>
-    );
-};
-
-const getTimePercentage = function(startTime, endTime) {
-    let currentTime = new Date();
-    let elapsedTime = currentTime.getHours() * 3600 + currentTime.getMinutes() * 60 + currentTime.getSeconds() - startTime;
-    let totalTime = endTime - startTime;
-    return elapsedTime / totalTime * 100;
-}
-
 class TimerCircle extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            percentage: getTimePercentage(props.startTime, props.endTime)
+            startTime: new Date("2018-10-29T7:30:00+01:00"),
+            endTime: new Date("2018-10-29T15:30:00+01:00"),
+            percentage: this.getTimePercentage(new Date("2015-03-25T7:30:00+01:00"), new Date("2018-10-29T15:00:00+01:00"))
         }
     }
 
     componentDidMount() {
         var that = this;
         this.interval = setInterval(function() {
-            that.setState({percentage: getTimePercentage(that.props.startTime, that.props.endTime)})
+            that.setState({percentage: that.getTimePercentage(that.state.startTime, that.state.endTime)})
         }, 1000);
     }
 
     componentWillUnmount() {
         clearInterval(this.interval);
     }
-    
+
+    getTimePercentage = function(startTime, endTime, currentTime = new Date()) {
+        const getTimeInSeconds = time => time.getHours() * 3600 + time.getMinutes() * 60 + time.getSeconds();
+        let startTimeSeconds = getTimeInSeconds(startTime);
+        let endTimeSeconds = getTimeInSeconds(endTime);
+        let currentTimeSeconds = getTimeInSeconds(currentTime);
+        let elapsedTime = currentTimeSeconds - startTimeSeconds;
+        let totalTime = endTimeSeconds - startTimeSeconds;
+        return elapsedTime / totalTime * 100;
+    }
+
     render() {
-        return (
-            <Circle percent={this.state.percentage} strokeWidth="5" strokeColor="#00FF00" trailWidth="5"/>
-        )
+        return (<Circle percent={this.state.percentage} strokeWidth="5" strokeColor={this.state.percentage < 100 ? "#00FF00" : "#FF0000"} trailWidth="5"/>)
     }
 }
+
+export default () => (
+<Layout>
+    <TimerCircle />
+</Layout>)
